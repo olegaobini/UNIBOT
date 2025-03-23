@@ -10,4 +10,10 @@
       <param name="turtle" type="string" value="turtle2" /> 
     </node>
 
+    <node pkg="learning_tf" type="turtle_tf_listener.py" 
+          name="listener" />
+
+<node pkg="learning_tf" type="fixed_tf_broadcaster.py"
+          name="broadcaster_fixed" />
+
   </launch>
