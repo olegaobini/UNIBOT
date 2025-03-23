@@ -1,0 +1,13 @@
+# Ignore catkin build directories
+build/
+devel/
+install/
+logs/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore ROS-related generated files
+*.log
+
