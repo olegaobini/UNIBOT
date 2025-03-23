@@ -1,34 +1,37 @@
 #!/usr/bin/env python3
 
 import rospy
-import tf2_ros
-import geometry_msgs.msg
-import tf_conversions
+import tf
+import math
+from geometry_msgs.msg import TransformStamped
 
-def publish_static_tf():
-    rospy.init_node('static_tf_publisher')
+def broadcast_dynamic_tf():
+    rospy.init_node('dynamic_tf_broadcaster')
+    br = tf.TransformBroadcaster()
+    rate = rospy.Rate(10.0)
 
-    broadcaster = tf2_ros.StaticTransformBroadcaster()
+    angle = 0.0
+    while not rospy.is_shutdown():
+        # Simulate rotation around Z axis
+        angle += 0.05
+        x = 2.0
+        y = 1.0
+        z = 0.0
 
-    static_tf = geometry_msgs.msg.TransformStamped()
-    static_tf.header.stamp = rospy.Time.now()
-    static_tf.header.frame_id = "world"
-    static_tf.child_frame_id = "robot_1"
+        quat = tf.transformations.quaternion_from_euler(0, 0, angle)  # Yaw rotation
 
-    static_tf.transform.translation.x = 2.0
-    static_tf.transform.translation.y = 1.0
-    static_tf.transform.translation.z = 0.0
+        br.sendTransform(
+            (x, y, z),
+            quat,
+            rospy.Time.now(),
+            "robot_1",
+            "world"
+        )
 
-    quat = tf_conversions.transformations.quaternion_from_euler(0, 0, 0.785)  # yaw = 45°
-    static_tf.transform.rotation.x = quat[0]
-    static_tf.transform.rotation.y = quat[1]
-    static_tf.transform.rotation.z = quat[2]
-    static_tf.transform.rotation.w = quat[3]
-
-    broadcaster.sendTransform(static_tf)
-    rospy.loginfo("Published static transform from world -> robot_1")
-
-    rospy.spin()
+        rate.sleep()
 
 if __name__ == '__main__':
-    publish_static_tf()
+    try:
+        broadcast_dynamic_tf()
+    except rospy.ROSInterruptException:
+        pass
