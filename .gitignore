@@ -11,8 +11,3 @@ __pycache__/
 # Ignore ROS-related generated files
 *.log
 
-
-# Ignore beginning test files
-src/beginner_tutorial
-src/grippy
-src/learning_tf
