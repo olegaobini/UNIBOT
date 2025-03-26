@@ -3,6 +3,7 @@ build/
 devel/
 install/
 logs/
+log/
 
 # Ignore Python cache
 __pycache__/
