@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'unibot_interface'
+package_name = 'uni_nav'
 
 setup(
     name=package_name,
