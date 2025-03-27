@@ -14,3 +14,6 @@ __pycache__/
 
 # Ignore VSCODE
 *.vscode
+
+# Ignore Temp Directory
+.temp/
