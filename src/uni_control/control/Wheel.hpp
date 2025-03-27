@@ -1,16 +1,25 @@
 #pragma once
-#include "pid.hpp"
+#include "PID.hpp"
 
-class main_wheel {
+class Wheel {
 public:
   PID outer; // wheel speed PID
   PID middle; // tilt angle PID
   PID inner; // angular velocity PID
 
-  main_wheel(float dt)
-    : outer(1.0, 0.0, 0.0, dt, 20.0),
-      middle(3.0, 0.2, 0.01, dt, 30.0),
-      inner(5.0, 0.1, 0.01, dt, 255.0) {} // output could be mapped to PWM
+  float kp_inner, ki_inner, kd_inner;
+  float kp_outer, ki_outer, kd_outer;
+  float kp_middle, ki_middle, kd_middle;
+
+  float inner_limit;
+  float outer_limit;
+  float middle_limit;
+
+  // kp(p), ki(i), kd(d), dt(dt_sec), output_limit(limit) {}
+  Wheel(float dt)
+    : outer(kp_outer,ki_outer ,kd_outer, dt, outer_limit),
+      inner(kp_inner,ki_inner ,kd_inner, dt, inner_limit),
+      middle(kp_middle,ki_middle,kd_middle, dt, middle_limit) {} // output could be mapped to PWM
 
   float update(float desired_velocity, float measured_velocity,
                float measured_angle, float measured_ang_velocity) {

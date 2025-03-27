@@ -1,4 +1,4 @@
-#include "main_wheel.hpp"
+#include "Wheel.hpp"
 
 // Setup
 main_wheel balance(0.001f); // 1 kHz loop
