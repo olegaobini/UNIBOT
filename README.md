@@ -4,9 +4,10 @@ This is a student developed self-driving self-balancing unicycle, controlled wit
 
 
 # TODO
-- 
-- 
-- 
+- print out new side plate with elongated screw slots. The main motor belt needs more tension.
+- print out a new top plate with hole cutouts for the raspberry pi 5
+- find a remote controller that I could use to control everything.
+- add screws to the reaction wheel's to increase mass.
 
 # Control File Directory
 uni_control/
