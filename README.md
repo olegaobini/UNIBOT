@@ -3,6 +3,7 @@ This is a student developed self-driving self-balancing unicycle, controlled wit
 
 
 # TODO
+- write code to detect if robot is vertical or not, then send brake signal
 - fix get angle position implementation
 - figure out quadrature encoding to create wheel speed function
 - print out new side plate with elongated screw slots. The main motor belt needs more tension.
