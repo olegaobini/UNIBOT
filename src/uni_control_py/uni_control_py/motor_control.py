@@ -5,11 +5,14 @@ from rclpy.node import Node
 from gpiozero import PWMOutputDevice
 
 class MotorController(Node):
+    '''
+    duty cycle is negative edged (0.0 is fully on, 1.0 is fully off)
+    '''
     def __init__(self,
+                 pwm_pin,
                  node_name='motor_controller',
-                 pwm_pin=13,
                  frequency=1000,
-                 duty=1.0): #initial duty cycle is 1.0 or off
+                 duty=1.0): #initial duty cycle is 1.0 (off)
         """
         :param node_name:     ROS 2 node name
         :param pwm_pin:       GPIO pin number to use for PWM
@@ -25,10 +28,10 @@ class MotorController(Node):
         self.motor = PWMOutputDevice(pin=self.pwm_pin, frequency=self.frequency)
 
         # Set initial duty cycle
-        self.set_duty_cycle(duty)
+        self.set_duty_cycle(duty) # the motors are expecting the negative edge duty cycle, but that's stupid
 
         self.get_logger().info(
-            f"MotorController started on GPIO {self.pwm_pin} at {self.frequency} Hz with duty {initial_duty:.2f}."
+            f"MotorController started on GPIO {self.pwm_pin} at {self.frequency} Hz with duty {duty:.2f}."
         )
     
     # Set the PWM duty cycle [0.0, 1.0].
@@ -52,8 +55,8 @@ def main(args=None):
     rclpy.init(args=args)
 
     # Example usage: GPIO 18, 1kHz, initial duty = 0.5
-    node = MotorController(node_name='motor_controller',
-                           pwm_pin=18,
+    node = MotorController(pwm_pin=12, 
+                           node_name='motor_controller',
                            frequency=1000,
                            duty=0.8)
 
