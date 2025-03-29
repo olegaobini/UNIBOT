@@ -1,0 +1,20 @@
+motor1:
+  pwm_pin: 18
+  dir_pin: 15
+  enc_a_pin: 23
+  enc_b_pin: 24
+  break_pin: null
+
+motor2:
+  pwm_pin: 12
+  dir_pin: 16
+  enc_a_pin: 20
+  enc_b_pin: 21
+  break_pin: null
+
+motor3:
+  pwm_pin: 13
+  dir_pin: 6
+  enc_a_pin: 0
+  enc_b_pin: 5
+  break_pin: null
