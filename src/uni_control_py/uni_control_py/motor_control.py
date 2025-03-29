@@ -70,5 +70,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-# cd ~/unibot_ws/src/uni_control_py/uni_control_py
