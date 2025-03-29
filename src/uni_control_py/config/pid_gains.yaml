@@ -2,26 +2,26 @@ reaction_wheel_gains:
   kp_inner: 0.0
   ki_inner: 0.0
   kd_inner: 0.0
-  limit_inner: 100.0
+  limit_inner: 1.0
   kp_middle: 0.0
   ki_middle: 0.0
   kd_middle: 0.0
-  limit_middle: 100.0
+  limit_middle: 1.0
   kp_outer: 0.0
   ki_outer: 0.0
   kd_outer: 0.0
-  limit_outer: 100.0
+  limit_outer: 1.0
 
 main_wheel_gains:
   kp_inner: 0.0
   ki_inner: 0.0
   kd_inner: 0.0
-  limit_inner: 100.0
+  limit_inner: 1.0
   kp_middle: 0.0
   ki_middle: 0.0
   kd_middle: 0.0
-  limit_middle: 100.0
+  limit_middle: 1.0
   kp_outer: 0.0
   ki_outer: 0.0
   kd_outer: 0.0
-  limit_outer: 100.0
+  limit_outer: 1.0
