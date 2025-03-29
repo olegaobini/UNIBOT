@@ -13,7 +13,52 @@ __pycache__/
 *.log
 
 # Ignore VSCODE
-*.vscode
+.vscode/
+*.code-workspace
 
 # Ignore Temp Directory
-.temp/
+*.temp/
+
+# Ignore Vim swap files
+*.swp
+*.swo
+*.swn
+
+# Ignore Log files
+*.lgd-nfy0
+
+# Ignore Emacs temporary files
+*~
+.#*
+
+# Ignore CMake build artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore compiled binaries and libraries
+*.o
+*.so
+*.a
+*.out
+*.exe
+
+# Ignore Python virtual environment
+venv/
+.venv/
+
+# Ignore test and coverage reports
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Ignore YAML temporary files
+*.yaml~
+
+# Ignore macOS metadata files
+.DS_Store
+
+# Ignore Windows metadata files
+Thumbs.db
