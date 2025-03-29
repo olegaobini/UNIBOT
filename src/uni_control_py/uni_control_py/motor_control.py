@@ -9,12 +9,12 @@ class MotorController(Node):
                  node_name='motor_controller',
                  pwm_pin=13,
                  frequency=1000,
-                 initial_duty=0.0):
+                 duty=1.0): #initial duty cycle is 1.0 or off
         """
         :param node_name:     ROS 2 node name
         :param pwm_pin:       GPIO pin number to use for PWM
         :param frequency:     PWM frequency (Hz)
-        :param initial_duty:  Initial duty cycle (0.0 to 1.0)
+        :param duty:  duty cycle (0.0 (fully on) to 1.0 (fully off))
         """
         super().__init__(node_name)
         
@@ -25,19 +25,21 @@ class MotorController(Node):
         self.motor = PWMOutputDevice(pin=self.pwm_pin, frequency=self.frequency)
 
         # Set initial duty cycle
-        self.set_duty_cycle(initial_duty)
+        self.set_duty_cycle(duty)
 
         self.get_logger().info(
             f"MotorController started on GPIO {self.pwm_pin} at {self.frequency} Hz with duty {initial_duty:.2f}."
         )
-
+    
+    # Set the PWM duty cycle [0.0, 1.0].
     def set_duty_cycle(self, duty):
-        """
-        Set the PWM duty cycle [0.0, 1.0].
-        """
         duty = max(0.0, min(1.0, duty))  # clamp between 0 and 1
         self.motor.value = duty
         self.get_logger().info(f"Duty cycle set to {duty:.2f}")
+
+    def read_encoder_speed(self):
+        # Placeholder function
+        return 0.0
 
     def destroy_node(self):
         """
@@ -53,7 +55,7 @@ def main(args=None):
     node = MotorController(node_name='motor_controller',
                            pwm_pin=18,
                            frequency=1000,
-                           initial_duty=0.8)
+                           duty=0.8)
 
     try:
         rclpy.spin(node)
