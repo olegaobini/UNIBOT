@@ -73,7 +73,7 @@ class MotorController(Node):
         time_interval = current_time - self.last_time
 
         # Calculate speed
-        pulses_per_revolution = 360  # Replace with your encoder's PPR
+        pulses_per_revolution = 360  #This PPR is a placeholder, find the actual value for  encoder
         speed = (self.pulse_count / pulses_per_revolution) / time_interval
 
         # Reset pulse count and time
