@@ -7,6 +7,8 @@ from gpiozero import PWMOutputDevice, DigitalInputDevice
 class MotorController(Node):
     '''
     duty cycle is negative edged (0.0 is fully on, 1.0 is fully off)
+
+    - the quadrature encoding is the sketchiest part of this entire code base.
     '''
     def __init__(self,
                  pwm_pin,
@@ -29,7 +31,7 @@ class MotorController(Node):
         # Create a PWM output on the specified pin with gpiozero
         self.motor = PWMOutputDevice(pin=self.pwm_pin, frequency=self.frequency)
 
-        # Encoder setup
+        # Qaudrature Encoder setup
         self.encoder_a = DigitalInputDevice(channel_a)
         self.encoder_b = DigitalInputDevice(channel_b)
         self.pulse_count = 0
@@ -84,7 +86,7 @@ class MotorController(Node):
         """
         Properly stop PWM when node is destroyed.
         """
-        self.set_duty_cycle(0.0)
+        self.set_duty_cycle(1.0)
         super().destroy_node()
 
 def main(args=None):
