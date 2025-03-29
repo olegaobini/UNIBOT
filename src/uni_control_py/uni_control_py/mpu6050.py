@@ -74,4 +74,3 @@ if __name__ == "__main__":
         Gx, Gy, Gz = sensor.read_gyro()
         print(f"Gx: {Gx:.2f} deg/s, Gy: {Gy:.2f} deg/s, Gz: {Gz:.2f} deg/s")
         time.sleep(0.5)
-
