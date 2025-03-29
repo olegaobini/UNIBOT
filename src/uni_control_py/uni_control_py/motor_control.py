@@ -7,7 +7,7 @@ from gpiozero import PWMOutputDevice
 class MotorController(Node):
     def __init__(self,
                  node_name='motor_controller',
-                 pwm_pin=18,
+                 pwm_pin=13,
                  frequency=1000,
                  initial_duty=0.0):
         """
@@ -53,7 +53,7 @@ def main(args=None):
     node = MotorController(node_name='motor_controller',
                            pwm_pin=18,
                            frequency=1000,
-                           initial_duty=0.5)
+                           initial_duty=0.8)
 
     try:
         rclpy.spin(node)
@@ -65,3 +65,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+# cd ~/unibot_ws/src/uni_control_py/uni_control_py
