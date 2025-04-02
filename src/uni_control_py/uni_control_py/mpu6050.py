@@ -15,13 +15,13 @@ class MPU6050:
     PWR_MGMT_1       = 0x6B
 
     #accelerometer registers
-    ACCEL_XOUT     = 0x3B
-    ACCEL_YOUT     = 0x3D
+    ACCEL_XOUT     = 0x3D
+    ACCEL_YOUT     = 0x3B
     ACCEL_ZOUT     = 0x3F
 
     #gyroscope registers
-    GYRO_XOUT      = 0x43
-    GYRO_YOUT      = 0x45
+    GYRO_XOUT      = 0x45
+    GYRO_YOUT      = 0x43
     GYRO_ZOUT      = 0x47
 
     # Configuration registers 
