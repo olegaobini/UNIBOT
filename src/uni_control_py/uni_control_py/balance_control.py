@@ -15,7 +15,7 @@ DT = 0.005 #period of loop
 
 def main():
     '''
-    TODO which axis corresponds to roll and pitch? send to motor command
+    TODO 
     - There's a lot of assumptions in the get_angle_pos function. 
       test which directions actually correspond to roll and pitch
     
@@ -69,7 +69,7 @@ def main():
             loop_start = time.time()
 
             # Ax, Ay, Az = sensor.read_accel()  
-            Gy, Gx, Gz = sensor.read_gyro()  
+            Gx, Gy, Gz = sensor.read_gyro()  
 
             prev_angles = get_angle_pos(Gx - zero_angles['roll'], Gy - zero_angles['pitch'], DT, prev_angles)
             #prev_angles = get_angle_pos(Gx, Gy, DT, prev_angles)
