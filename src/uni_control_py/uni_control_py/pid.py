@@ -12,11 +12,11 @@ class PID:
     def update(self, error):
         self.integral += error * self.dt
         derivative = (error - self.prev_error) / self.dt
+
         self.prev_error = error
 
-        output = (self.kp * error) + (self.ki * self.integral) + (self.kd * derivative)
+        output = self.kp * error + self.ki * self.integral + self.kd * derivative
 
-        #clamp the output to the output limit
         if output > self.output_limit:
             output = self.output_limit
         elif output < -self.output_limit:
