@@ -16,6 +16,7 @@ class PID:
 
         output = (self.kp * error) + (self.ki * self.integral) + (self.kd * derivative)
 
+        #clamp the output to the output limit
         if output > self.output_limit:
             output = self.output_limit
         elif output < -self.output_limit:
