@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-import smbus
+import os
 import time
+import smbus
+from ament_index_python.packages import get_package_share_directory
 
 # These numbers convert raw accelerometer and gyroscope data to physical units
 ACCEL_SCALE = 16384.0 # ±2g → Scale Factor = 16384.0 (LSB/g)
@@ -22,14 +24,18 @@ class MPU6050:
     GYRO_YOUT      = 0x45
     GYRO_ZOUT      = 0x47
 
+    # Configuration registers 
 
     def __init__(self, bus_num=1, address=MPU6050_ADDR):
         self.bus = smbus.SMBus(bus_num)
         self.address = address
+        self.DLPF_CFG = 0
+        self.CONFIG_REG = 0x1A
 
         try:
             time.sleep(0.1)  # <-- Add slight delay before first write
             self.bus.write_byte_data(self.address, self.PWR_MGMT_1, 0)
+            self.bus.write_byte_data(self.address, self.CONFIG_REG, self.DLPF_CFG)
             time.sleep(0.1)  # <-- Let the sensor wake up
         except OSError as e:
             print(f"[MPU6050 ERROR] Could not initialize MPU6050: {e}")
@@ -62,6 +68,22 @@ class MPU6050:
         Gz = gyro_z / GYRO_SCALE
 
         return Gx, Gy, Gz
+
+    def get_angle_pos(Gx, Gy, dt, prev_angles):
+        """
+        Integrate gyroscope data to estimate angular position.
+        
+        :param Gx: Angular velocity around the X-axis (degrees/sec)
+        :param Gy: Angular velocity around the Y-axis (degrees/sec)
+        :param Gz: Angular velocity around the Z-axis (degrees/sec)
+        :param dt: Time step (seconds)
+        :param prev_angles: Dictionary containing previous angles for roll, pitch, and yaw
+        :return: Updated angles (roll, pitch). Yaw is not needed here
+        """
+        roll_angle = prev_angles['roll'] + Gx * dt
+        pitch_angle = prev_angles['pitch'] + Gy * dt
+
+        return {'roll': roll_angle, 'pitch': pitch_angle} 
 
 # Standalone test
 if __name__ == "__main__":
