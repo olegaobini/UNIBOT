@@ -29,7 +29,7 @@ class MPU6050:
     def __init__(self, bus_num=1, address=MPU6050_ADDR):
         self.bus = smbus.SMBus(bus_num)
         self.address = address
-        self.DLPF_CFG = 0
+        self.DLPF_CFG = 6 
         self.CONFIG_REG = 0x1A
 
         try:
@@ -63,9 +63,10 @@ class MPU6050:
         gyro_y = self._read_raw_data(self.GYRO_YOUT)
         gyro_z = self._read_raw_data(self.GYRO_ZOUT)
 
-        Gx = gyro_x / GYRO_SCALE # 131 LSB/(degrees/sec)
-        Gy = gyro_y / GYRO_SCALE
-        Gz = gyro_z / GYRO_SCALE
+        roundNum = 0
+        Gx = round((gyro_x / GYRO_SCALE), roundNum) # 131 LSB/(degrees/sec)
+        Gy = round((gyro_y / GYRO_SCALE), roundNum)
+        Gz = round((gyro_z / GYRO_SCALE), roundNum)
 
         return Gx, Gy, Gz
 
