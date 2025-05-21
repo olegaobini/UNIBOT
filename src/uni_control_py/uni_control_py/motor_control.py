@@ -124,12 +124,16 @@ class MotorController(Node):
 def main(args=None):
     rclpy.init(args=args)
 
+    # side motors are 12, 13 
+    # main motor is pin 18
     node = MotorController(pwm_pin=18,
                            dir_pin=15,
                            channel_a_pin=0,
                            channel_b_pin=0,
-                           initial_duty=0.9)
-
+                           initial_duty=0.1)
+    
+    time.sleep(1)  # Allow time for the motor to initialize
+    node.set_duty_cycle(-0.1)  # Set initial duty cycle to 50%
 
     try:
         rclpy.spin(node)
