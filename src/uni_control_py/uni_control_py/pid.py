@@ -3,6 +3,7 @@ class PID:
         self.kp = kp
         self.ki = ki
         self.kd = kd
+
         self.dt = dt_sec
         self.output_limit = output_limit
 
@@ -15,7 +16,7 @@ class PID:
 
         self.prev_error = error
 
-        output = self.kp * error + self.ki * self.integral + self.kd * derivative
+        output = (self.kp * error) + (self.ki * self.integral) + (self.kd * derivative)
 
         if output > self.output_limit:
             output = self.output_limit
