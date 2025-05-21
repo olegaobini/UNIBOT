@@ -1,10 +1,12 @@
+# Left side
 motor1:
-  pwm_pin: 18
-  dir_pin: 15
-  enc_a_pin: 23
-  enc_b_pin: 24
+  pwm_pin: 13
+  dir_pin: 6
+  enc_a_pin: 0
+  enc_b_pin: 5
   brake_pin: null
 
+# Right Side
 motor2:
   pwm_pin: 12
   dir_pin: 16
@@ -12,9 +14,34 @@ motor2:
   enc_b_pin: 21
   brake_pin: null
 
+# Main Wheel
 motor3:
-  pwm_pin: 13
-  dir_pin: 6
-  enc_a_pin: 0
-  enc_b_pin: 5
+  pwm_pin: 18
+  dir_pin: 15
+  enc_a_pin: 23
+  enc_b_pin: 24
   brake_pin: null
+
+#   # Left side
+# motor1:
+#   pwm_pin: 13
+#   dir_pin: 15
+#   enc_a_pin: 23
+#   enc_b_pin: 24
+#   brake_pin: null
+
+# # Right Side
+# motor2:
+#   pwm_pin: 12
+#   dir_pin: 16
+#   enc_a_pin: 20
+#   enc_b_pin: 21
+#   brake_pin: null
+
+# # Main Wheel
+# motor3:
+#   pwm_pin: 18
+#   dir_pin: 6
+#   enc_a_pin: 0
+#   enc_b_pin: 5
+#   brake_pin: null
