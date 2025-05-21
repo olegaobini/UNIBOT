@@ -7,25 +7,25 @@ class CascadedController:
     A 3-loop cascaded PID controller:
       - Inner Loop:  controls angular acceleration (IMU data)
       - Middle Loop: controls angular position (via integrated acceleration)
-      - Outer Loop:  controls wheel speed (via encoder measurement)
+      - Outer Loop:  controls wheel speed/robot velocity (via encoder measurement/IMU velocity data)
     """
     def __init__(
         self,
         kp_inner, ki_inner, kd_inner, limit_inner,
         kp_middle, ki_middle, kd_middle, limit_middle,
         kp_outer, ki_outer, kd_outer, limit_outer,
-        dt, wheel_speed_setpoint,
+        dt, outer_loop_setpoint,
     ):
 
         self.dt = dt
-        self.wheel_speed_setpoint = wheel_speed_setpoint # Control the robots forward speed
+        self.outer_loop_setpoint = outer_loop_setpoint # Control the robots forward speed
 
         self.inner_pid  = PID(kp_inner,  ki_inner,  kd_inner,  dt, limit_inner)
         self.middle_pid = PID(kp_middle, ki_middle, kd_middle, dt, limit_middle)
         self.outer_pid  = PID(kp_outer,  ki_outer,  kd_outer,  dt, limit_outer)
         
 
-    def update(self, angle_vel_measurement, angle_pos_measurement, wheel_speed_measurement):
+    def update(self, inner_loop_measurement, middle_loop_measurement, outer_loop_measurement):
         """
         1. Outer loop:   speed error = (speed_setpoint - speed_measurement)
            => Middle setpoint is angle setpoint = outer_pid.update(speed_error)
@@ -40,18 +40,18 @@ class CascadedController:
         """
 
         # Outer loop
-        wheel_speed_error  = self.wheel_speed_setpoint - wheel_speed_measurement
-        angle_sp_cmd = self.outer_pid.update(wheel_speed_error)
+        outer_loop_error  = self.outer_loop_setpoint - outer_loop_measurement
+        outer_loop_output = self.outer_pid.update(outer_loop_error)
 
         # Middle loop 
-        angle_pos_error  = angle_sp_cmd - angle_pos_measurement
-        accel_sp_cmd = self.middle_pid.update(angle_pos_error)
+        middle_loop_error  = outer_loop_output - middle_loop_measurement
+        middle_loop_output = self.middle_pid.update(middle_loop_error)
 
         # Inner loop
-        angle_pos_error = accel_sp_cmd - angle_vel_measurement
-        motor_output = self.inner_pid.update(angle_pos_error)
+        inner_loop_error = middle_loop_output - inner_loop_measurement
+        output = self.inner_pid.update(inner_loop_error)
 
-        return motor_output
+        return output
 
 
     def reset_all(self):
@@ -60,5 +60,5 @@ class CascadedController:
         self.outer_pid.reset()
 
     #method to set the setpoints
-    def set_speed_setpoint(self, sp):
-        self.speed_setpoint = sp
+    def set_outer_loop_setpoint(self, sp):
+        self.outer_loop_setpoint = sp
